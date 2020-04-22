@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import NavBar from './components/Header/NavBar'
+import ToDoList from './components/ToDoList/TodoList'
+import list from './seed.json'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      currentUser: null,
+      todoList: list,
+    };
+  }
+  render() {
+    return (
+      <div>
+        <NavBar />
+       <ToDoList list={this.state.todoList} />
+      </div>
+    );
+  }
 }
 
 export default App;

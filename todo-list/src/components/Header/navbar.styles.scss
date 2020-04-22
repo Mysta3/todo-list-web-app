@@ -1,0 +1,15 @@
+* {
+  box-sizing: border-box;
+}
+.navbar {
+  background-color: rgb(131, 238, 131);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  .options {
+    margin-top: 4vh;
+    margin-right: 2vw;
+  }
+}
+
+

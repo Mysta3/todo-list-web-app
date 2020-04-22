@@ -1,0 +1,18 @@
+.todoContainer{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  .cardList{
+      text-align: center;
+      .listItem{
+          list-style-type: none;
+          .item{
+              padding: 1vh;
+          }
+          span{
+              color: grey;
+              font-size: 12px;
+          }
+      }
+  }
+}
