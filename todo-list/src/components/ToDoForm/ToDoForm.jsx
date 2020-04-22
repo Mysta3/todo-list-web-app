@@ -1,15 +1,12 @@
 import React from 'react';
 import './todoform.styles.scss';
-function ToDoForm() {
-    const handleSubmit = (event) =>{
-        event.preventDefault(); //prevent page from reloading
-        
-    }
+function ToDoForm(props) {
+  const {handleSubmit} = props
   return (
     <div className="todoForm">
-      <form>
+      <form onSubmit={handleSubmit}>
         <input name="description" placeholder="Add New Item"></input>
-        <button type="submit" onClick={handleSubmit}>Add</button>
+        <button type="submit">Add</button>
       </form>
     </div>
   );
