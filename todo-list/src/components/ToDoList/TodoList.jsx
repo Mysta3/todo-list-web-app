@@ -1,18 +1,24 @@
 import React from 'react';
 import './todolist.styles.scss';
 
-
 function TodoList(props) {
   const { toDolist, removeItem } = props;
-  console.log(toDolist)
+  console.log(toDolist);
   return (
     <div className="todoContainer">
       <div className="cardList">
         <ul className="listItem">
-            {/* map items from props */}
+          {/* map items from props */}
           {toDolist.map((item) => (
             <div key={item.id} className="item">
-              <li>{item.description}</li> <span>{item.created_at}</span> <button onClick={removeItem}>X</button>
+              <input
+                type="checkbox"
+                id={item.id}
+                name={item.description}
+                value={item.description}
+              />
+              <label for={item.id}> {item.description}</label>{' '}
+              <span>{item.created_at}</span>
             </div>
           ))}
         </ul>

@@ -9,7 +9,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      currentUser: null,
+      email: '',
+      password: '',
       todoList: [
         {
           id: 0,
@@ -33,6 +34,11 @@ class App extends Component {
       this.setState({todoList: this.state.todoList.concat(data)})
       event.target['description'].value = '';
     };
+    this.handleUserLogin = (event) => {
+      event.preventDefault();
+      this.setState({email: event.target.value, password: event.target.value});
+      // console.log(email, password);
+    };
 
     this.removeItem = (event) =>{
       event.preventDefault(); 
@@ -42,7 +48,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <NavBar />
+        <NavBar email={this.email} password={this.password}/>
         <h1>My Todo List</h1>
         <ToDoForm handleSubmit={this.handleSubmit} />
         <ToDoList toDolist={this.state.todoList} removeItem={this.removeItem} />
