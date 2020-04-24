@@ -4,7 +4,7 @@ import ToDoList from './components/ToDoList/TodoList';
 import ToDoForm from './components/ToDoForm/ToDoForm';
 import fire from './components/utils/firebase';
 import axios from 'axios';
-import './App.css';
+import './App.scss';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(false);
@@ -112,7 +112,7 @@ function App() {
   // }
 
   return (
-    <div>
+    <div className='App'>
       <NavBar
         setUserUID={setUserUID}
         setCurrentUser={setCurrentUser}
@@ -123,7 +123,7 @@ function App() {
         userUID={userUID}
       />
       {currentUser ? <h1>My Todo List</h1> : <h1>Login To See Todo List</h1>}
-      {/* <ToDoForm handleSubmit={handleSubmit} /> */}
+      <ToDoForm handleSubmit={handleSubmit} />
       <ToDoList toDolist={todoList} />
     </div>
   );
