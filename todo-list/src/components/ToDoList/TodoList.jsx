@@ -3,22 +3,31 @@ import './todolist.styles.scss';
 
 function TodoList(props) {
   const { toDolist, removeItem } = props;
-  console.log(toDolist);
+console.log(toDolist)
+  if (toDolist.length === 0) {
+    return (
+      <div className="todoContainer">
+        <div className="cardList">
+          <h2>Add New Todo...</h2>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="todoContainer">
       <div className="cardList">
         <ul className="listItem">
           {/* map items from props */}
-          {toDolist.map((item) => (
-            <div key={item.id} className="item">
+          {toDolist.map((item, index) => (
+            <div key={index} className="item">
               <input
                 type="checkbox"
-                id={item.id}
+                id={index}
                 name={item.description}
                 value={item.description}
               />
-              <label for={item.id}> {item.description}</label>{' '}
-              <span>{item.created_at}</span>
+              <label> {item.description}</label> <span>{item.created_at}</span>
             </div>
           ))}
         </ul>

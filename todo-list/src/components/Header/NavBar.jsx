@@ -1,15 +1,35 @@
 import React from 'react';
 import './navbar.styles.scss';
+import fire from '../utils/firebase';
 
 function NavBar(props) {
-  let { email, password } = props;
+  const { logout, handleSubmit } = props;
 
-  const handleSubmit = (event) => {
+  
+  //firebase signup
+  const signup = (event) => {
     event.preventDefault();
-    email = event.target['email'].value;
-    password = event.target['password'].value;
-    console.log(email, password);
+    // setUser({
+    //   email: data.email,
+    //   password: data.password,
+    // });
+
+    // fire
+    //   .auth()
+    //   .createUserWithEmailAndPassword(
+    //     newUser.email,
+    //     newUser.password
+    //   )
+    //   .then((newUser) => {
+    //     setCurrentUser(true);
+    //     console.log(newUser);
+    //     //call post new user to backend
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
+
   return (
     <div className="navbar">
       <h1>TODO LIST</h1>
@@ -19,8 +39,7 @@ function NavBar(props) {
             id="email"
             type="text"
             name="email"
-            placeholder="Enter email"
-            value={email}
+            placeholder="Enter email address"
             required
           />
           <input
@@ -28,11 +47,19 @@ function NavBar(props) {
             type="password"
             name="password"
             placeholder="password"
-            value={password}
             required
           />
-          <button type="submit">Login</button>
+
+          {/* {currentUser === false && ( */}
+          <div>
+            <button type="submit">Login</button>{' '}
+            <button onClick={signup}>Sign Up</button>
+          </div>
+          {/* )} */}
         </form>
+        {/* {currentUser === true &&  */}
+        <button onClick={logout}>Logout</button>
+        {/* } */}
       </div>
     </div>
   );

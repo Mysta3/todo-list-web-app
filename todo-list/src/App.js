@@ -1,60 +1,133 @@
-import React, { Component } from 'react';
-import NavBar from './components/Header/NavBar'
-import ToDoList from './components/ToDoList/TodoList'
-import ToDoForm from './components/ToDoForm/ToDoForm'
-// import list from './seed.json'
+import React, { useEffect, useState } from 'react';
+import NavBar from './components/Header/NavBar';
+import ToDoList from './components/ToDoList/TodoList';
+import ToDoForm from './components/ToDoForm/ToDoForm';
+import fire from './components/utils/firebase';
+import axios from 'axios';
 import './App.css';
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
+function App() {
+  const [currentUser, setCurrentUser] = useState(false);
+  const [user, setUser] = useState({ email: '', password: '' });
+  const [userUID, setUserUID] = useState(null);
+  const [todoList, setTodoList] = useState([]);
+  const url = 'http://localhost:3001/users/';
+
+  //listen for state change
+  useEffect(() => {
+    return authListener(); // return currentState of the current user
+  }, []);
+
+  //get current logged in user
+  const authListener = () => {
+    console.log('test');
+    let user = fire.auth().currentUser; //grab current user
+    if (user) {
+      //if currentUser is present
+      setCurrentUser(true); //set currentUser to true
+    } else {
+      setCurrentUser(false); //else keep it false
+    }
+  };
+
+  //grabs event.target.value and sets user
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    //set user state to value of inputbox in form
+    setUser({
+      email: event.target['email'].value,
+      password: event.target['password'].value,
+    });
+
+    //login using Firebase Auth
+    fire
+      .auth()
+      .signInWithEmailAndPassword(
+        event.target['email'].value,
+        event.target['password'].value
+      )
+      .then((validUser) => {
+        console.log('UID:', validUser.user.uid);
+        setUserUID(validUser.user.uid);
+      })
+      .then(() => {
+        //change currentUser to true
+        setCurrentUser(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    //empty field after submission
+    event.target['email'].value = '';
+    event.target['password'].value = '';
+  };
+
+  // firebase logout
+  const logout = () => {
+    fire.auth().signOut();
+    setCurrentUser(false);
+    setUser({
       email: '',
       password: '',
-      todoList: [
-        {
-          id: 0,
-          description: 'Learn React Native',
-          created_at: '04-21-2020',
-        },
-        {
-          id: 1,
-          description: 'Pick Birthday gift for Wife',
-          created_at: '04-21-2020',
-        },
-      ],
-    };
-    this.handleSubmit = (event) => {
-      event.preventDefault(); //prevent page from reloading
-      let data = {};
-      data.id = 3;
-      data.description = event.target['description'].value;
-      data.created_at = "04-23-2020";
-      console.log(data);
-      this.setState({todoList: this.state.todoList.concat(data)})
-      event.target['description'].value = '';
-    };
-    this.handleUserLogin = (event) => {
-      event.preventDefault();
-      this.setState({email: event.target.value, password: event.target.value});
-      // console.log(email, password);
-    };
+    });
+    setTodoList([]);
+  };
 
-    this.removeItem = (event) =>{
-      event.preventDefault(); 
-      console.log(event.target)
-    }
+  const fetchData = () => {
+    axios
+      .get(`${url + userUID}`)
+      .then((res) => {
+        console.log(res.data);
+        setTodoList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  //fire once there is a user
+  if (userUID) {
+    // fetchData();
+    console.log(userUID);
   }
-  render() {
-    return (
-      <div>
-        <NavBar email={this.email} password={this.password}/>
-        <h1>My Todo List</h1>
-        <ToDoForm handleSubmit={this.handleSubmit} />
-        <ToDoList toDolist={this.state.todoList} removeItem={this.removeItem} />
-      </div>
-    );
-  }
+
+  // Add Todo item
+  // const handleSubmit = (event) => {
+  //   event.preventDefault(); //prevent page from reloading
+  //   let data = {};
+  //   data.description = event.target['description'].value;
+  //   console.log(data);
+  //   //post to backend
+  //   // postData(data)
+  //   event.target['description'].value = '';
+  // };
+
+  // const postData = (data) => {
+  //   axios.post(`${url + user.email}`);
+  // };
+  // remove item from todo list
+  // const removeItem = (event) => {
+  //   event.preventDefault();
+  //   console.log(event.target)
+  // }
+
+  return (
+    <div>
+      <NavBar
+        setUserUID={setUserUID}
+        setCurrentUser={setCurrentUser}
+        handleSubmit={handleSubmit}
+        logout={logout}
+        user={user}
+        setUser={setUser}
+        userUID={userUID}
+      />
+      {currentUser ? <h1>My Todo List</h1> : <h1>Login To See Todo List</h1>}
+      {/* <ToDoForm handleSubmit={handleSubmit} /> */}
+      <ToDoList toDolist={todoList} />
+    </div>
+  );
 }
 
 export default App;
