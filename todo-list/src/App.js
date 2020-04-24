@@ -15,12 +15,12 @@ function App() {
 
   //listen for state change
   useEffect(() => {
-    return authListener(); // return currentState of the current user
-  }, []);
+    authListener(); // return currentState of the current user
+  }, [currentUser]);
 
   //get current logged in user
   const authListener = () => {
-    console.log('test');
+    console.log('auth checker');
     let user = fire.auth().currentUser; //grab current user
     if (user) {
       //if currentUser is present
@@ -28,6 +28,19 @@ function App() {
     } else {
       setCurrentUser(false); //else keep it false
     }
+  };
+
+  const fetchData = (userUID) => {
+    // console.log(`${url + userUID}`)
+    axios
+      .get(`${url + userUID}`)
+      .then((res) => {
+        // console.log(res.data);
+        setTodoList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   //grabs event.target.value and sets user
@@ -48,7 +61,9 @@ function App() {
       )
       .then((validUser) => {
         console.log('UID:', validUser.user.uid);
+        //setUID
         setUserUID(validUser.user.uid);
+        fetchData(validUser.user.uid)
       })
       .then(() => {
         //change currentUser to true
@@ -61,6 +76,7 @@ function App() {
     //empty field after submission
     event.target['email'].value = '';
     event.target['password'].value = '';
+    
   };
 
   // firebase logout
@@ -71,26 +87,9 @@ function App() {
       email: '',
       password: '',
     });
+    setUserUID(null);
     setTodoList([]);
   };
-
-  const fetchData = () => {
-    axios
-      .get(`${url + userUID}`)
-      .then((res) => {
-        console.log(res.data);
-        setTodoList(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  //fire once there is a user
-  if (userUID) {
-    // fetchData();
-    console.log(userUID);
-  }
 
   // Add Todo item
   // const handleSubmit = (event) => {
