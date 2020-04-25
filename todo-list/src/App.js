@@ -12,10 +12,12 @@ function App() {
   const [userUID, setUserUID] = useState(null);
   const [todoList, setTodoList] = useState([]);
   const url = 'http://localhost:3001/users/';
+  let newLength = 0;
 
   //listen for state change
   useEffect(() => {
     authListener(); // return currentState of the current user
+    fetchData();
   }, [currentUser]);
 
   //get current logged in user
@@ -109,22 +111,23 @@ function App() {
     //use event to target input value
     let newItem = event.target['todo'].value; //assign to variable for readability
     setTodoList((curArr) => [...curArr, newItem]); //update state by passing in oldstate of array to new start of array
-    console.log(todoList); //console log updated array
 
     event.target['todo'].value = '';
-    //make a put request to update list
-    updateData(todoList);
+    updateData(newItem);
   };
 
-   const updateData = (todoList) => {
-    //  axios.put(`${url + userUID}`, { todoList }).then((updatedTodoList) => {
-    //    console.log(updatedTodoList);
-    //  }).catch((err)=>{
-    //    console.log(err.message, 'Something went wrong')
-    //  });
-    console.log(todoList)
-   };
- 
+  const updateData = (newItem) => {
+    let newList = [...todoList, newItem];
+    axios
+      .put(`${url + userUID}`, { list: newList })
+      .then((updatedTodoList) => {
+        console.log(updatedTodoList);
+      })
+      .catch((err) => {
+        console.log(err.message, 'Something went wrong');
+      });
+  };
+
   // remove item from todo list
   // const removeItem = (event) => {
   //   event.preventDefault();
@@ -145,8 +148,16 @@ function App() {
       {currentUser ? (
         <>
           <h1>My Todo List</h1>
-          <ToDoForm updateData={updateData} addToDo={addToDo} toDolist={todoList} />
-          <ToDoList toDolist={todoList} />{' '}
+          <ToDoForm
+            updateData={updateData}
+            addToDo={addToDo}
+            toDolist={todoList}
+          />
+          <ToDoList
+            toDolist={todoList}
+            updateData={updateData}
+            newLength={newLength}
+          />{' '}
         </>
       ) : (
         <h1>Login To See Todo List</h1>

@@ -3,7 +3,7 @@ import './todolist.styles.scss';
 
 function TodoList(props) {
   const { toDolist, removeItem } = props;
-  console.log(toDolist);
+ 
   return (
     <>
       {/* //conditionally render page //if no todo's currently on page */}

@@ -1,6 +1,6 @@
 import React from 'react';
 import './navbar.styles.scss';
-import fire from '../utils/firebase';
+
 
 function NavBar(props) {
   const { logout, handleSubmit } = props;
