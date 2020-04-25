@@ -1,8 +1,6 @@
 # MERN Stack ToDo List - FrontEnd
 
-[Project In Browser](https://imgur.com/a/xCDDWUm)
-
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/xCDDWUm"><a href="//imgur.com/a/xCDDWUm">todo list</a></blockquote>
+![Project In Browser](https://i.imgur.com/nmho5K7.png)
 
 ## Description
 
