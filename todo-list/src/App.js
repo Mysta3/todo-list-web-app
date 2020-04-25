@@ -21,13 +21,15 @@ function App() {
   //get current logged in user
   const authListener = () => {
     console.log('auth checker');
-    let user = fire.auth().currentUser; //grab current user
-    if (user) {
-      //if currentUser is present
-      setCurrentUser(true); //set currentUser to true
-    } else {
-      setCurrentUser(false); //else keep it false
-    }
+    fire.auth().onAuthStateChanged((user) => {
+      //grab current user
+      if (user) {
+        //if currentUser is present
+        setCurrentUser(true); //set currentUser to true
+      } else {
+        setCurrentUser(false); //else keep it false
+      }
+    });
   };
 
   const fetchData = (userUID) => {
@@ -51,7 +53,6 @@ function App() {
       email: event.target['email'].value,
       password: event.target['password'].value,
     });
-
     //login using Firebase Auth
     fire
       .auth()
@@ -63,7 +64,7 @@ function App() {
         console.log('UID:', validUser.user.uid);
         //setUID
         setUserUID(validUser.user.uid);
-        fetchData(validUser.user.uid)
+        fetchData(validUser.user.uid);
       })
       .then(() => {
         //change currentUser to true
@@ -71,12 +72,12 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        alert(err.message);
       });
 
     //empty field after submission
     event.target['email'].value = '';
     event.target['password'].value = '';
-    
   };
 
   // firebase logout
@@ -97,14 +98,33 @@ function App() {
   //   let data = {};
   //   data.description = event.target['description'].value;
   //   console.log(data);
-  //   //post to backend
-  //   // postData(data)
+  //post to backend
+  // postData(data)
   //   event.target['description'].value = '';
   // };
 
-  // const postData = (data) => {
-  //   axios.post(`${url + user.email}`);
-  // };
+  ///add new item to array
+  const addToDo = (event) => {
+    event.preventDefault();
+    //use event to target input value
+    let newItem = event.target['todo'].value; //assign to variable for readability
+    setTodoList((curArr) => [...curArr, newItem]); //update state by passing in oldstate of array to new start of array
+    console.log(todoList); //console log updated array
+
+    event.target['todo'].value = '';
+    //make a put request to update list
+    updateData(todoList);
+  };
+
+   const updateData = (todoList) => {
+    //  axios.put(`${url + userUID}`, { todoList }).then((updatedTodoList) => {
+    //    console.log(updatedTodoList);
+    //  }).catch((err)=>{
+    //    console.log(err.message, 'Something went wrong')
+    //  });
+    console.log(todoList)
+   };
+ 
   // remove item from todo list
   // const removeItem = (event) => {
   //   event.preventDefault();
@@ -112,7 +132,7 @@ function App() {
   // }
 
   return (
-    <div className='App'>
+    <div className="App">
       <NavBar
         setUserUID={setUserUID}
         setCurrentUser={setCurrentUser}
@@ -122,9 +142,15 @@ function App() {
         setUser={setUser}
         userUID={userUID}
       />
-      {currentUser ? <h1>My Todo List</h1> : <h1>Login To See Todo List</h1>}
-      <ToDoForm handleSubmit={handleSubmit} />
-      <ToDoList toDolist={todoList} />
+      {currentUser ? (
+        <>
+          <h1>My Todo List</h1>
+          <ToDoForm updateData={updateData} addToDo={addToDo} toDolist={todoList} />
+          <ToDoList toDolist={todoList} />{' '}
+        </>
+      ) : (
+        <h1>Login To See Todo List</h1>
+      )}
     </div>
   );
 }
