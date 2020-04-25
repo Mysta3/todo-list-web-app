@@ -1,6 +1,6 @@
 # MERN Stack ToDo List - FrontEnd
 
-![Project in Browser](https://imgur.com/nmho5K7)
+[Project In Browser](https://imgur.com/nmho5K7)
 
 ## Description
 Created from scratch in order to display web development fundamentals across the stack.
