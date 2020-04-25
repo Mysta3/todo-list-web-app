@@ -134,6 +134,7 @@ function App() {
   return (
     <div className="App">
       <NavBar
+        currentUser={currentUser}
         setUserUID={setUserUID}
         setCurrentUser={setCurrentUser}
         handleSubmit={handleSubmit}
@@ -144,7 +145,7 @@ function App() {
       />
       {currentUser ? (
         <>
-          <h1>My Todo List</h1>
+          <h2>My Todo List</h2>
           <ToDoForm addToDo={addToDo} toDolist={todoList} />
           <ToDoList
             toDolist={todoList}
@@ -153,7 +154,7 @@ function App() {
           />{' '}
         </>
       ) : (
-        <h1>Login To See Todo List</h1>
+        <h2>Login To See Todo List</h2>
       )}
     </div>
   );

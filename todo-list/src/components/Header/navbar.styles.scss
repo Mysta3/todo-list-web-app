@@ -2,13 +2,32 @@
   box-sizing: border-box;
 }
 .navbar {
+  font-size: 20px;
   background-color: rgb(131, 238, 131);
   width: 100%;
   display: flex;
   justify-content: space-between;
+  border:1px solid black;
+  box-shadow: 0px 5px 5px grey;
   .options {
     margin-top: 4vh;
     margin-right: 2vw;
+  }
+  input{
+    padding: 10px;
+    font-size: 20px;
+  }
+  button{
+    font-size: 19px;
+    margin: 3px;
+    background: transparent;
+    border: none;
+  }
+
+  button:hover{
+    cursor: pointer;
+    color: white;
+    background: black;
   }
 }
 

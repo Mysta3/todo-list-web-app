@@ -1,11 +1,9 @@
 import React from 'react';
 import './navbar.styles.scss';
 
-
 function NavBar(props) {
-  const { logout, handleSubmit } = props;
+  const { logout, handleSubmit, currentUser } = props;
 
-  
   //firebase signup
   const signup = (event) => {
     event.preventDefault();
@@ -32,7 +30,7 @@ function NavBar(props) {
 
   return (
     <div className="navbar">
-      <h1>TODO LIST</h1>
+      <h1>MERN TODO LIST</h1>
       <div className="options">
         <form onSubmit={handleSubmit}>
           <input
@@ -50,16 +48,14 @@ function NavBar(props) {
             required
           />
 
-          {/* {currentUser === false && ( */}
-          <div>
-            <button type="submit">Login</button>{' '}
-            <button onClick={signup}>Sign Up</button>
-          </div>
-          {/* )} */}
+          {currentUser === false && (
+            <div>
+              <button type="submit">Login</button>{' '}
+              <button onClick={signup}>Sign Up</button>
+            </div>
+          )}
         </form>
-        {/* {currentUser === true &&  */}
-        <button onClick={logout}>Logout</button>
-        {/* } */}
+        {currentUser === true && <button onClick={logout}>Logout</button>}
       </div>
     </div>
   );
