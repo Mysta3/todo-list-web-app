@@ -3,10 +3,6 @@ import './todolist.styles.scss';
 
 function TodoList(props) {
   const { toDolist, removeItem } = props;
-  const handleChange = (event) => {
-    // event.target.className = 'hide';
-    console.log(event.target.className);
-  };
   return (
     <>
       {/* //conditionally render page //if no todo's currently on page */}
@@ -23,21 +19,16 @@ function TodoList(props) {
             <ul className="listItem">
               {/* map items from props */}
               {toDolist.map((item, index) => (
-                <div
+                <li
                   onClick={removeItem}
                   key={index}
                   className="item"
-                  onChange={handleChange}
+                  name={item}
+                  id={index}
+                  value={item}
                 >
-                  <input
-                    type="checkbox"
-                    className="test"
-                    id={index}
-                    name={item}
-                    value={item}
-                  />
-                  <label> {item}</label>{' '}
-                </div>
+                  {item}
+                </li>
               ))}
             </ul>
           </div>

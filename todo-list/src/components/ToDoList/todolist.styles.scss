@@ -15,18 +15,24 @@
         border: 1px solid rgba(39, 116, 37, 0.329);
         border-radius: 3%;
         background-color: rgb(132, 238, 131);
+        cursor: pointer;
         
+      }
+      .item:hover {
+        background-color: rgb(247, 11, 11);
+        color: white;
+        transform: scale(1.2);
+        box-shadow: 0px 5px 5px grey;
       }
       span {
         color: black;
-        
       }
-      .checkbox{
-          border: 1px solid black;
-          &.hover{
-            background-color: red;
-          }
-        }
     }
   }
 }
+
+// @keyframes bounce{
+//   0%{
+
+//   }
+// }

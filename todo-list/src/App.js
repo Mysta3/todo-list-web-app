@@ -122,13 +122,13 @@ function App() {
   // remove item from todo list
   const removeItem = (event) => {
     // event.preventDefault();
+    event.target.className = 'hide';
     //target id
-    // let index = event.target.id;
+    let index = event.target.id;
     //search splice array using index
-    // todoList.splice(index, 1);
+    todoList.splice(index, 1);
     //update state
-    // setTodoList(todoList);
-    console.log(event.target.class, todoList);
+    setTodoList(todoList);
   };
 
   return (
