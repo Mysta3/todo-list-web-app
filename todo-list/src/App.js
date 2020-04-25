@@ -17,7 +17,9 @@ function App() {
   //listen for state change
   useEffect(() => {
     authListener(); // return currentState of the current user
-    fetchData();
+    if (userUID) {
+      fetchData();
+    }
   }, [currentUser]);
 
   //get current logged in user
@@ -94,17 +96,6 @@ function App() {
     setTodoList([]);
   };
 
-  // Add Todo item
-  // const handleSubmit = (event) => {
-  //   event.preventDefault(); //prevent page from reloading
-  //   let data = {};
-  //   data.description = event.target['description'].value;
-  //   console.log(data);
-  //post to backend
-  // postData(data)
-  //   event.target['description'].value = '';
-  // };
-
   ///add new item to array
   const addToDo = (event) => {
     event.preventDefault();
@@ -129,10 +120,16 @@ function App() {
   };
 
   // remove item from todo list
-  // const removeItem = (event) => {
-  //   event.preventDefault();
-  //   console.log(event.target)
-  // }
+  const removeItem = (event) => {
+    // event.preventDefault();
+    //target id
+    // let index = event.target.id;
+    //search splice array using index
+    // todoList.splice(index, 1);
+    //update state
+    // setTodoList(todoList);
+    console.log(event.target.class, todoList);
+  };
 
   return (
     <div className="App">
@@ -148,14 +145,10 @@ function App() {
       {currentUser ? (
         <>
           <h1>My Todo List</h1>
-          <ToDoForm
-            updateData={updateData}
-            addToDo={addToDo}
-            toDolist={todoList}
-          />
+          <ToDoForm addToDo={addToDo} toDolist={todoList} />
           <ToDoList
             toDolist={todoList}
-            updateData={updateData}
+            removeItem={removeItem}
             newLength={newLength}
           />{' '}
         </>

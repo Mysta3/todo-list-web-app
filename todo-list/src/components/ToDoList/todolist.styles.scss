@@ -1,18 +1,32 @@
 .todoContainer {
   display: flex;
   flex-direction: column;
-  text-align: center;
+  justify-content: center;
+  width: 30%;
+  margin-left: 34%;
   .cardList {
     text-align: center;
     .listItem {
       list-style-type: none;
+
       .item {
         padding: 1vh;
+        font-size: 18px;
+        border: 1px solid rgba(39, 116, 37, 0.329);
+        border-radius: 3%;
+        background-color: rgb(132, 238, 131);
+        
       }
       span {
-        color: grey;
-        font-size: 12px;
+        color: black;
+        
       }
+      .checkbox{
+          border: 1px solid black;
+          &.hover{
+            background-color: red;
+          }
+        }
     }
   }
 }

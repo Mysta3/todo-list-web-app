@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './todolist.styles.scss';
 
 function TodoList(props) {
   const { toDolist, removeItem } = props;
- 
+  const handleChange = (event) => {
+    // event.target.className = 'hide';
+    console.log(event.target.className);
+  };
   return (
     <>
       {/* //conditionally render page //if no todo's currently on page */}
       {toDolist.length === 0 && (
         <div className="todoContainer">
-          <div className="cardList">
-            <h2>Add New Todo...</h2>
-          </div>
+          <h2>Add New Todo...</h2>
+          <div className="cardList"></div>
         </div>
       )}
       {/* //if todo's are currently on page */}
@@ -21,9 +23,15 @@ function TodoList(props) {
             <ul className="listItem">
               {/* map items from props */}
               {toDolist.map((item, index) => (
-                <div key={index} className="item">
+                <div
+                  onClick={removeItem}
+                  key={index}
+                  className="item"
+                  onChange={handleChange}
+                >
                   <input
                     type="checkbox"
+                    className="test"
                     id={index}
                     name={item}
                     value={item}
