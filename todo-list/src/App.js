@@ -4,6 +4,7 @@ import ToDoList from './components/ToDoList/TodoList';
 import ToDoForm from './components/ToDoForm/ToDoForm';
 import fire from './components/utils/firebase';
 import axios from 'axios';
+import { Container } from 'react-bootstrap';
 import './App.scss';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
       fetchData();
     }
   }, [currentUser, userUID]);
+
 
   //get current logged in user
   const authListener = () => {
@@ -135,7 +137,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <Container fluid className="App">
       <NavBar
         currentUser={currentUser}
         setUserUID={setUserUID}
@@ -159,7 +161,7 @@ function App() {
       ) : (
         <h2>Login To See Todo List</h2>
       )}
-    </div>
+    </Container>
   );
 }
 
