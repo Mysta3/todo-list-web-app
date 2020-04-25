@@ -17,10 +17,13 @@ function App() {
   //listen for state change
   useEffect(() => {
     authListener(); // return currentState of the current user
-    if (userUID) {
+    if (userUID === false) {
+      console.log('no one is logged in');
+    }
+    if (userUID === true) {
       fetchData();
     }
-  }, [currentUser]);
+  }, [currentUser, userUID]);
 
   //get current logged in user
   const authListener = () => {
