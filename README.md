@@ -20,5 +20,5 @@ Created from scratch in order to display web development fundamentals across the
 
 - Clone & or Download
 - Navigate into todo-list
-- run `javascript npm i`
-- run `javascript npm run start`
+- run `npm i`
+- run `npm run start`
