@@ -22,6 +22,7 @@ For this I decided to go with using the MERN stack as React allows for me to wri
 - NodeJs
 - Axios
 - Firebase Authentication
+- React Bootstrap
 
 ## Future Implementations
 

@@ -26,7 +26,12 @@ function NavBar(props) {
               required
             />
 
-            {currentUser === false && <button type="submit">Login</button>}
+            {currentUser === false && (
+              <>
+                <button type="submit">Login</button>
+                <button type="submit">SignUp</button>
+              </>
+            )}
           </form>
         )}
         {/* {currentUser === true && <span>Welcome!</span>} */}

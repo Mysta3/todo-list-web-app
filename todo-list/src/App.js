@@ -51,9 +51,25 @@ function App() {
       });
   };
 
+  //create a new user
+  const postData = (userUID) => {
+    axios
+      .post(`${url}`, {
+        uid: userUID,
+      })
+      .then((res) => {
+        setTodoList(res.data.list);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   //grabs event.target.value and sets user
   const handleSubmit = (event) => {
     event.preventDefault();
+    let email = event.target['email'].value;
+    let password = event.target['password'].value;
     //set user state to value of inputbox in form
     setUser({
       email: event.target['email'].value,
@@ -78,7 +94,18 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        alert(err.message);
+        // alert(err.message);
+        fire
+          .auth()
+          .createUserWithEmailAndPassword(email, password)
+          .then((newUser) => {
+            console.log(newUser.user.uid);
+            setUserUID(newUser.user.uid);
+            postData(newUser.user.uid);
+          })
+          .catch((error) => {
+            console.log('error', error);
+          });
       });
 
     //empty field after submission
