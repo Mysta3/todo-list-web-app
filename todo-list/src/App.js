@@ -15,7 +15,7 @@ function App() {
   const url = 'http://localhost:3001/users/';
   let newLength = 0;
 
-  //listen for state change
+  //listen for state change of logged in user
   useEffect(() => {
     authListener(); // return currentState of the current user
     if (userUID === false) {
@@ -25,7 +25,6 @@ function App() {
       fetchData();
     }
   }, [currentUser, userUID]);
-
 
   //get current logged in user
   const authListener = () => {
@@ -42,11 +41,9 @@ function App() {
   };
 
   const fetchData = (userUID) => {
-    // console.log(`${url + userUID}`)
     axios
       .get(`${url + userUID}`)
       .then((res) => {
-        // console.log(res.data);
         setTodoList(res.data);
       })
       .catch((err) => {
@@ -117,7 +114,8 @@ function App() {
     axios
       .put(`${url + userUID}`, { list: newList })
       .then((updatedTodoList) => {
-        console.log(updatedTodoList);
+        console.log(updatedTodoList.data.list);
+        setTodoList(updatedTodoList.data.list);
       })
       .catch((err) => {
         console.log(err.message, 'Something went wrong');
@@ -132,6 +130,7 @@ function App() {
     let index = event.target.id;
     //search splice array using index
     todoList.splice(index, 1);
+    console.log(todoList);
     //update state
     setTodoList(todoList);
   };
@@ -140,13 +139,8 @@ function App() {
     <Container fluid className="App">
       <NavBar
         currentUser={currentUser}
-        setUserUID={setUserUID}
-        setCurrentUser={setCurrentUser}
         handleSubmit={handleSubmit}
         logout={logout}
-        user={user}
-        setUser={setUser}
-        userUID={userUID}
       />
       {currentUser ? (
         <>

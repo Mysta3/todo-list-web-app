@@ -5,30 +5,6 @@ import './navbar.styles.scss';
 function NavBar(props) {
   const { logout, handleSubmit, currentUser } = props;
 
-  //firebase signup
-  const signup = (event) => {
-    event.preventDefault();
-    // setUser({
-    //   email: data.email,
-    //   password: data.password,
-    // });
-
-    // fire
-    //   .auth()
-    //   .createUserWithEmailAndPassword(
-    //     newUser.email,
-    //     newUser.password
-    //   )
-    //   .then((newUser) => {
-    //     setCurrentUser(true);
-    //     console.log(newUser);
-    //     //call post new user to backend
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-  };
-
   return (
     <div className="navbar">
       <h1>MERN TODO LIST</h1>
@@ -50,21 +26,16 @@ function NavBar(props) {
               required
             />
 
-            {currentUser === false && (
-              <div>
-                <button type="submit">Login</button>{' '}
-                <button onClick={signup}>Sign Up</button>
-              </div>
-            )}
+            {currentUser === false && <button type="submit">Login</button>}
           </form>
         )}
         {/* {currentUser === true && <span>Welcome!</span>} */}
         {currentUser === true && (
           <>
             {' '}
-           <DropdownButton id='dropdown-basic-button' title="Welcome!">
-             <Dropdown.Item onClick={logout} >Logout</Dropdown.Item>
-           </DropdownButton>
+            <DropdownButton id="dropdown-basic-button" title="Welcome!">
+              <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
+            </DropdownButton>
             {/* <button onClick={logout}>Logout</button> */}
           </>
         )}
