@@ -131,8 +131,18 @@ function App() {
     //search splice array using index
     todoList.splice(index, 1);
     console.log(todoList);
-    //update state
-    setTodoList(todoList);
+
+    //update list on backend
+    axios
+      .put(`${url + userUID}`, { list: todoList })
+      .then((updatedList) => {
+        console.log(updatedList.data.list);
+        //update state
+        setTodoList(updatedList.data.list);
+      })
+      .catch((err) => {
+        console.log(err.message, 'Something went wrong');
+      });
   };
 
   return (
