@@ -10,7 +10,7 @@ For this I decided to go with using the MERN stack as React allows for me to wri
 ## User Stories
 
 - A user will be able to login and either see a previously created todo List or create a new todo list.
-- A user will add to a todo list that is then stored in a database.
+- A user will add to an item to their todo list that is then stored in a database by using the add button.
 - A user will be able to delete a item off of their todo list.
 
 ## Technologies Used
