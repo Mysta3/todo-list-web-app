@@ -34,14 +34,12 @@ function NavBar(props) {
             )}
           </form>
         )}
-        {/* {currentUser === true && <span>Welcome!</span>} */}
         {currentUser === true && (
           <>
             {' '}
             <DropdownButton id="dropdown-basic-button" title="Welcome!">
               <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
             </DropdownButton>
-            {/* <button onClick={logout}>Logout</button> */}
           </>
         )}
       </div>

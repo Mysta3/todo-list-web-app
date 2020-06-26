@@ -12,7 +12,7 @@ function App() {
   const [user, setUser] = useState({ email: '', password: '' });
   const [userUID, setUserUID] = useState(null);
   const [todoList, setTodoList] = useState([]);
-  const url = 'http://localhost:3001/users/';
+  const url = 'https://todo-listdb.herokuapp.com/users/';
   let newLength = 0;
 
   //listen for state change of logged in user
