@@ -1,6 +1,8 @@
 # MERN Stack ToDo List - FrontEnd
 
 ![Project In Browser](https://i.imgur.com/nmho5K7.png)
+- [Deployed App](https://todo-list-2eb71.web.app/ "Live app")
+- [Backend Repo](https://github.com/Mysta3/todo-list-web-app-backend "Link to Backend Repo")
 
 ## Description
 
